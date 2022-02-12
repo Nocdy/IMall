@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/imallparent/imall-common-api/imall-common-api.iml" filepath="$PROJECT_DIR$/imallparent/imall-common-api/imall-common-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imallparent/imallparent.iml" filepath="$PROJECT_DIR$/imallparent/imallparent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imallparent/login-producer/login-producer.iml" filepath="$PROJECT_DIR$/imallparent/login-producer/login-producer.iml" />
+    </modules>
+  </component>
+</project>
