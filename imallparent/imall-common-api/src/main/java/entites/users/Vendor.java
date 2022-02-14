@@ -1,6 +1,7 @@
 package entites.users;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,19 +17,24 @@ import org.springframework.stereotype.Repository;
 @NoArgsConstructor
 public class Vendor {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "vendor_id",type = IdType.AUTO)
     private Integer id;
 
+    @TableField(value = "vendor_contact_number")
     private String contactNumber;
 
+    @TableField(value = "vendor_contact_name")
     private String contactName;
 
+    @TableField(value = "vendor_name")
     private String shopName;
 
-    private String loginId;
+    private String userId;
 
-    public Vendor(Integer id,String loginId){
+    private String userName;
+
+    public Vendor(Integer id,String userId){
         this.id=id;
-        this.loginId=loginId;
+        this.userId=userId;
     }
 }

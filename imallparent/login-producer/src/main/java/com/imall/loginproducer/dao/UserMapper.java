@@ -1,7 +1,7 @@
 package com.imall.loginproducer.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import entites.users.User;
+import entites.users.ClientInform;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date 2022/2/8 11:20
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<ClientInform> {
 }

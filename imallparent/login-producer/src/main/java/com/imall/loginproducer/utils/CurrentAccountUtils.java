@@ -11,13 +11,12 @@ import org.springframework.stereotype.Component;
  * @Date 2022/2/11 16:58
  */
 @Component
-public class CurrentUserUtils {
+public class CurrentAccountUtils {
 
-    private String getCurrentUserPhone(){
+    public JwtUser getUser(){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         if(authentication!=null&&authentication.getPrincipal()!=null){
-            JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-            return jwtUser.getUsername();
+            return (JwtUser) authentication.getPrincipal();
         }
         return null;
     }

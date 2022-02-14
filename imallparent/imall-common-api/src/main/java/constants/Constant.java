@@ -16,5 +16,9 @@ public final class Constant {
     public final static String VISITOR="访客";
     public final static String ADMIN="管理员";
 
+    private Constant(){
+
+    }
+
 
 }

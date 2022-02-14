@@ -54,7 +54,6 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 指定的接口直接放行
                 // swagger
-                .antMatchers("/registry").permitAll()
                 .antMatchers(SecurityConstants.SWAGGER_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SYSTEM_WHITELIST).permitAll()
                 // 其他的接口都需要认证后才能请求

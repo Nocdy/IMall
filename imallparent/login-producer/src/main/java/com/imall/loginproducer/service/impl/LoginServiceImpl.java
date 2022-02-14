@@ -1,17 +1,21 @@
 package com.imall.loginproducer.service.impl;
 
+import com.imall.loginproducer.dto.LoginRequest;
 import com.imall.loginproducer.dto.UserRegistry;
 import com.imall.loginproducer.service.*;
+import com.imall.loginproducer.utils.CurrentAccountUtils;
 import dto.Result;
 import emums.StatusCode;
-import entites.users.AccountRole;
-import entites.users.LoginAccount;
-import entites.users.User;
-import entites.users.Vendor;
+import entites.users.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import utils.JwtTokenUtils;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static constants.Constant.*;
 
@@ -34,16 +38,20 @@ public class LoginServiceImpl implements LoginService {
 
     private final AccountRoleService accountRoleService;
 
+    private final StringRedisTemplate stringRedisTemplate;
+
+    private final CurrentAccountUtils currentUserUtils;
+
     @Override
     public Result<Object> registry(UserRegistry registryRequest) {
         String type=registryRequest.getType();
         Vendor vendor=new Vendor();
-        LoginAccount loginAccount=new LoginAccount();
-        User user=new User();
+        User user =new User();
+        ClientInform clientInform =new ClientInform();
         boolean status=false;
         Integer account,roleId;
         roleId=roleService.getIdByName(type);
-        loginAccount.setPassword(registryRequest.getPassword());
+        user.setPassword(registryRequest.getPassword());
         if(VENDOR.equals(type)){
             vendor.setContactNumber(registryRequest.getContactNumber());
             vendor.setShopName(registryRequest.getShopName());
@@ -54,36 +62,35 @@ public class LoginServiceImpl implements LoginService {
                         StatusCode.VENDOR_REGISTRY_FAIL.getMessage());
             }
             vendor.setId(account);
-            loginAccount.setAccount(account);
-            loginAccount.setPassword(registryRequest.getPassword());
-            loginAccount.setId(getLoginId());
-            loginAccountService.save(loginAccount);
-            vendor.setLoginId(loginAccount.getId());
-            accountRoleService.save(new AccountRole(loginAccount.getId(),roleId));
-            status=vendorService.updateById(new Vendor(account,loginAccount.getId()));
+            user.setAccount(account);
+            user.setUserName(registryRequest.getShopName());
+            user.setPassword(registryRequest.getPassword());
+            loginAccountService.save(user);
+            vendor.setUserId(user.getId());
+            accountRoleService.save(new AccountRole(user.getId(),roleId));
+            status=vendorService.updateById(new Vendor(account, user.getId()));
         }
         else if(USER.equals(type)){
-            user.setPhone(registryRequest.getPhone());
-            user.setNickName(registryRequest.getNickName());
-            user.setEmail(registryRequest.getEmail());
-            user.setAddress(registryRequest.getAddress());
-            user.setName(registryRequest.getName());
-            account=userService.savaAndReturnId(user);
+            clientInform.setPhone(registryRequest.getPhone());
+            clientInform.setUserName(registryRequest.getNickName());
+            clientInform.setEmail(registryRequest.getEmail());
+            clientInform.setAddress(registryRequest.getAddress());
+            clientInform.setName(registryRequest.getName());
+            account=userService.savaAndReturnId(clientInform);
             if(account==-1){
                 return new Result<>(StatusCode.USER_REGISTRY_FAIL.getCode(),
                         StatusCode.USER_REGISTRY_FAIL.getMessage());
             }
             vendor.setId(account);
-            loginAccount.setAccount(account);
-            loginAccount.setUserName(registryRequest.getPhone());
-            loginAccount.setPassword(registryRequest.getPassword());
-            loginAccount.setId(getLoginId());
-            loginAccountService.save(loginAccount);
-            user.setLoginId(loginAccount.getId());
-            accountRoleService.save(new AccountRole(loginAccount.getId(),roleId));
+            user.setAccount(account);
+            user.setUserName(registryRequest.getPhone());
+            user.setPassword(registryRequest.getPassword());
+            loginAccountService.save(user);
+            clientInform.setUserId(user.getId());
+            accountRoleService.save(new AccountRole(user.getId(),roleId));
             roleId=roleService.getIdByName(VISITOR);
-            accountRoleService.save(new AccountRole(loginAccount.getId(),roleId));
-            status=userService.updateById(new User(account,loginAccount.getId()));
+            accountRoleService.save(new AccountRole(user.getId(),roleId));
+            status=userService.updateById(new ClientInform(account, user.getId()));
         }
         if(status){
             return new Result<>(StatusCode.REGISTRY_SUCCESS.getCode(),
@@ -96,7 +103,34 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public Result<Object> login() {
+    public Result<Object> login(LoginRequest loginRequest) {
+        ClientInform clientInform;
+        Vendor vendor;
+        List<Role> roles;
+        User user =new User();
+        String type=loginRequest.getRole();
+        Integer account=loginRequest.getId();
+        String id;
+        String phone=loginRequest.getPhone();
+        if(USER.equals(type)) {
+            if (account == null && phone != null) {
+                id = userService.getuserIdByPhone(phone);
+                user = loginAccountService.getById(id);
+            }
+            else{
+                clientInform =userService.getById(account);
+                user =loginAccountService.getById(clientInform.getUserId());
+            }
+        }
+        else{
+
+        }
+        roles=roleService.getBaseMapper().selectBatchIds(
+                accountRoleService.getRolesIdByuserId(user.getId())
+                        .stream()
+                        .map(AccountRole::getRoleId)
+                        .collect(Collectors.toList()));
+        user.setAccountRoles(roles);
         return null;
     }
 
@@ -105,9 +139,22 @@ public class LoginServiceImpl implements LoginService {
         return false;
     }
 
+    public String createToken(User user, LoginRequest loginRequest){
+        if(!loginAccountService.check(loginRequest.getPassword(), user.getPassword())){
+            throw new BadCredentialsException("The user name or password is not correct.");
+        }
+        JwtUser jwtUser=new JwtUser(user);
+        List<String> authorities = jwtUser.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        String token = JwtTokenUtils.createToken(user.getUserName(), user.getId(), authorities, loginRequest.getRememberMe());
+        stringRedisTemplate.opsForValue().set(user.getId(), token);
+        return token;
+    }
 
-    public static String getLoginId(){
-        return UUID.randomUUID().toString().replaceAll("-", "");
+    public void removeToken(){
+        JwtUser jwtUser=currentUserUtils.getUser();
     }
 
 

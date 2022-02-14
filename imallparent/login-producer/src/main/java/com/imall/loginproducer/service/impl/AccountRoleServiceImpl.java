@@ -1,10 +1,14 @@
 package com.imall.loginproducer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imall.loginproducer.dao.AccountRoleMapper;
 import com.imall.loginproducer.service.AccountRoleService;
 import entites.users.AccountRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Nocdy
@@ -12,5 +16,14 @@ import org.springframework.stereotype.Service;
  * @Date 2022/2/12 17:01
  */
 @Service
+@RequiredArgsConstructor
 public class AccountRoleServiceImpl extends ServiceImpl<AccountRoleMapper, AccountRole> implements AccountRoleService {
+
+    @Override
+    public List<AccountRole> getRolesIdByuserId(String userId) {
+        QueryWrapper<AccountRole> queryWrapper=new QueryWrapper<>();
+        queryWrapper
+                .eq("login_id",userId);
+        return getBaseMapper().selectList(queryWrapper);
+    }
 }

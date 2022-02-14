@@ -1,39 +1,43 @@
 package entites.users;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Nocdy
  * @Description TODO
- * @Date 2022/2/7 20:44
+ * @Date 2022/2/11 22:00
  */
 @Data
 @Repository
-@NoArgsConstructor
 public class User {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableField("login_id")
+    private Integer account;
 
-    private String name;
+    @TableId(value = "user_id",type = IdType.ASSIGN_ID)
+    private String id;
 
-    private String address;
+    private String password;
 
-    private String email;
+    private String userName;
 
     private String phone;
 
-    private String nickName;
+    @TableField(exist = false)
+    private List<Role> accountRoles=new ArrayList<>();
 
-    private String loginId;
-
-    public User(Integer id,String loginId){
-        this.id=id;
-        this.loginId=loginId;
+    public List<SimpleGrantedAuthority> getRoles(){
+        List<SimpleGrantedAuthority> authorities=new ArrayList<>();
+        accountRoles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
+        return authorities;
     }
 
 

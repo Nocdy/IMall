@@ -1,5 +1,6 @@
 package entites.users;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,17 +9,29 @@ import java.util.Collection;
 /**
  * @author Nocdy
  * @Description TODO
- * @Date 2022/2/10 15:42
+ * @Date 2Data2/10 15:42
  */
+@Data
 public class JwtUser implements UserDetails {
 
-    private Integer id;
+    private String id;
 
     private String userName;
 
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
+
+    public JwtUser(){
+
+    }
+
+    public JwtUser(User user){
+        id= user.getId();
+        userName= user.getUserName();
+        password= user.getPassword();
+        authorities= user.getRoles();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -54,4 +67,5 @@ public class JwtUser implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
 }

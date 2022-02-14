@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class AccountRole {
 
-    private String loginId;
+    private String userId;
 
     private Integer roleId;
 

@@ -41,10 +41,11 @@ public final class SecurityConstants {
             "/webjars/**",
     };
 
+
     // System WHITELIST
     public static final String[] SYSTEM_WHITELIST = {
-            "/auth/login",
-            "/users/sign-up"
+            "/login",
+            "/registry",
     };
 
     private SecurityConstants() {
