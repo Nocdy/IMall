@@ -1,5 +1,6 @@
 package com.imall.loginproducer.controller;
 
+import com.imall.loginproducer.dto.LoginRequest;
 import com.imall.loginproducer.dto.UserRegistry;
 import com.imall.loginproducer.service.LoginService;
 import dto.Result;
@@ -24,6 +25,18 @@ public class LoginController {
     public Result<Object> registry(@RequestBody UserRegistry userRegistry){
         return loginService.registry(userRegistry);
     }
+
+    @PostMapping("/login")
+    public Result<Object> login(@RequestBody LoginRequest loginRequest){
+        return loginService.login(loginRequest);
+    }
+
+    @PostMapping("/logout")
+    public Result<Object> logout(){
+        return loginService.logout();
+    }
+
+
 
 
 }

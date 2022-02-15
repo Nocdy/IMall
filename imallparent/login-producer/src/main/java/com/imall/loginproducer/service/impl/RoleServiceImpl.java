@@ -19,7 +19,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public Integer getIdByName(String name) {
         QueryWrapper<Role> queryWrapper=new QueryWrapper<>();
         queryWrapper
-                .eq("name",name);
+                .eq("role_name",name);
         return getOne(queryWrapper).getId();
     }
 }

@@ -12,21 +12,11 @@ public class UserRegistry {
 
     private String name;
 
-    private String address;
-
-    private String email;
-
     private String phone;
 
     private String password;
 
     private String nickName;
-
-    private String contactNumber;
-
-    private String contactName;
-
-    private String shopName;
 
     private String type;
 

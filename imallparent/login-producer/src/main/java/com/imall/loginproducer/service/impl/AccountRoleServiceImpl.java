@@ -20,10 +20,10 @@ import java.util.List;
 public class AccountRoleServiceImpl extends ServiceImpl<AccountRoleMapper, AccountRole> implements AccountRoleService {
 
     @Override
-    public List<AccountRole> getRolesIdByuserId(String userId) {
+    public List<AccountRole> getRolesIdByUserId(String userId) {
         QueryWrapper<AccountRole> queryWrapper=new QueryWrapper<>();
         queryWrapper
-                .eq("login_id",userId);
+                .eq("user_id",userId);
         return getBaseMapper().selectList(queryWrapper);
     }
 }

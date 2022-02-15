@@ -12,11 +12,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginRequest {
 
-    private Integer id;
-
     private String password;
 
-    private String phone;
+    private String loginAccount;
 
     private Boolean rememberMe;
 

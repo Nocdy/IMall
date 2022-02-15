@@ -4,42 +4,39 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imall.loginproducer.dao.UserMapper;
 import com.imall.loginproducer.service.UserService;
-import entites.users.ClientInform;
+import entites.users.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Nocdy
  * @Description TODO
- * @Date 2022/2/8 16:10
+ * @Date 2022/2/11 22:14
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, ClientInform> implements UserService {
+@RequiredArgsConstructor
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public ClientInform getInformationByPhone(String phone) {
-        QueryWrapper<ClientInform> queryWrapper=new QueryWrapper<>();
+    public boolean save(User entity) {
+        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+        return super.save(entity);
+    }
+
+    @Override
+    public Boolean check(String currentPassword, String password) {
+        return this.bCryptPasswordEncoder.matches(currentPassword,password);
+    }
+
+    @Override
+    public User getByUserName(String userName) {
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
         queryWrapper
-                .select("id","name","phone","address","email","nick_name")
-                .eq("phone",phone);
+                .eq("user_name",userName);
         return getOne(queryWrapper);
-    }
-
-    @Override
-    public String getuserIdByPhone(String phone) {
-        QueryWrapper<ClientInform> queryWrapper=new QueryWrapper<>();
-        queryWrapper
-                .select("login_id")
-                .eq("phone",phone);
-        return getOne(queryWrapper).getUserId();
-    }
-
-    @Override
-    public Integer savaAndReturnId(ClientInform clientInform) {
-        if(save(clientInform)){
-            return getInformationByPhone(clientInform.getPhone()).getId();
-        }
-        else{
-            return -1;
-        }
     }
 }

@@ -1,6 +1,7 @@
 package entites.users;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.springframework.stereotype.Repository;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class Role {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "role_id",type = IdType.AUTO)
     private Integer id;
 
+    @TableField(value = "role_name")
     private String name;
 
+    @TableField(value = "role_description")
     private String description;
 }

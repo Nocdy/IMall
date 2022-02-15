@@ -17,11 +17,4 @@ public interface VendorService extends IService<Vendor> {
      */
     Vendor getByShopName(String shopName);
 
-    /**
-     * 保存数据并返回账号
-     * @param vendor 登录实体
-     * @return 返回账号
-     */
-    Integer saveAndReturnId(Vendor vendor);
-
 }

@@ -10,8 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.SecretKey;
 import javax.xml.bind.DatatypeConverter;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,23 +27,14 @@ public class JwtTokenUtils {
     /**
      * 生成足够的安全随机密钥，以适合符合规范的签名
      */
-    private static final Properties props;
-    private static final byte[] API_KEY_SECRET_BYTES ;
-    private static final SecretKey SECRET_KEY ;
+    private static final Properties props=new Properties();
+    private static final byte[] API_KEY_SECRET_BYTES;
+    private static final SecretKey SECRET_KEY;
 
     static {
-        File file = new File("src/main/resources/keys/secret_key.properties");
-        InputStream in = null;
+        InputStream in = JwtTokenUtils.class.getClassLoader().getResourceAsStream("keys/secret_key.properties");
         try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        props = new Properties();
-        InputStreamReader inputStreamReader = null;
-        inputStreamReader = new InputStreamReader(in, StandardCharsets.UTF_8);
-        try {
-            props.load(inputStreamReader);
+            props.load(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +59,8 @@ public class JwtTokenUtils {
                 .setSubject(username)
                 .setExpiration(expirationDate)
                 .compact();
-        return SecurityConstants.TOKEN_PREFIX + tokenPrefix; // 添加 token 前缀 "Bearer ";
+        // 添加 token 前缀 "Bearer ";
+        return SecurityConstants.TOKEN_PREFIX + tokenPrefix;
     }
 
     public static String getId(String token) {

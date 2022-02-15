@@ -65,9 +65,11 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 授权异常处理
                 .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-                .accessDeniedHandler(new JwtAccessDeniedHandler());
-        // 防止H2 web 页面的Frame 被拦截
-        http.headers().frameOptions().disable();
+                .accessDeniedHandler(new JwtAccessDeniedHandler())
+                .and()
+                .logout()
+                .clearAuthentication(true);
+
     }
 
     /**

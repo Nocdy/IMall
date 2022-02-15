@@ -1,34 +1,29 @@
 package com.imall.loginproducer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import entites.users.ClientInform;
+import entites.users.User;
 
 /**
  * @author Nocdy
  * @Description TODO
- * @Date 2022/2/8 11:28
+ * @Date 2022/2/11 22:12
  */
-public interface UserService extends IService<ClientInform> {
+public interface UserService extends IService<User> {
 
     /**
-     * 根据手机号码获取用户信息
-     * @param phone 手机号码
-     * @return 返回用户信息，如果没有则返回null
+     * 检查密码是否错误
+     * @param currentPassword 输入的密码
+     * @param password 账号的密码
+     * @return 返回是否正确
      */
-    ClientInform getInformationByPhone(String phone);
+    Boolean check(String currentPassword,String password);
+
 
     /**
-     * 根据手机号码查询登录id
-     * @param phone 手机号码
-     * @return 返回id
+     * 根据用户名查询
+     * @param userName 用户名
+     * @return 返回实体
      */
-    String getuserIdByPhone(String phone);
-
-    /**
-     * 保存数据并返回用户id
-     * @param clientInform 保存实体
-     * @return 返回id
-     */
-    Integer savaAndReturnId(ClientInform clientInform);
+    User getByUserName(String userName);
 
 }

@@ -19,9 +19,6 @@ import java.util.List;
 @Repository
 public class User {
 
-    @TableField("login_id")
-    private Integer account;
-
     @TableId(value = "user_id",type = IdType.ASSIGN_ID)
     private String id;
 
@@ -29,7 +26,6 @@ public class User {
 
     private String userName;
 
-    private String phone;
 
     @TableField(exist = false)
     private List<Role> accountRoles=new ArrayList<>();

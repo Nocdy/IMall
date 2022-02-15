@@ -17,5 +17,5 @@ public interface AccountRoleService extends IService<AccountRole> {
      * @param userId 登录id
      * @return 角色列表
      */
-    List<AccountRole> getRolesIdByuserId(String userId);
+    List<AccountRole> getRolesIdByUserId(String userId);
 }

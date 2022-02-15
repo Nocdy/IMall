@@ -19,18 +19,9 @@ public class VendorServiceImpl extends ServiceImpl<VendorMapper, Vendor> impleme
     public Vendor getByShopName(String shopName) {
         QueryWrapper<Vendor> queryWrapper=new QueryWrapper<>();
         queryWrapper
-                .select("id","shop_name","contact_number","contact_name")
-                .eq("shop_name",shopName);
+                .select("vendor_id","vendor_name","vendor_contact_number","vendor_contact_name")
+                .eq("vendor_name",shopName);
         return getOne(queryWrapper);
     }
 
-    @Override
-    public Integer saveAndReturnId(Vendor vendor) {
-        if(save(vendor)) {
-            return getByShopName(vendor.getShopName()).getId();
-        }
-        else{
-            return -1;
-        }
-    }
 }

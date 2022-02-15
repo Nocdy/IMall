@@ -26,6 +26,6 @@ public interface LoginService {
      */
     Result<Object> login(LoginRequest loginRequest);
 
-    boolean logout();
+    Result<Object> logout();
 
 }

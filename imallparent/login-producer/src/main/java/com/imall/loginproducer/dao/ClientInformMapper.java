@@ -1,14 +1,14 @@
 package com.imall.loginproducer.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import entites.users.User;
+import entites.users.ClientInform;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Nocdy
  * @Description TODO
- * @Date 2022/2/11 22:12
+ * @Date 2022/2/8 11:20
  */
 @Mapper
-public interface LoginAccountMapper extends BaseMapper<User> {
+public interface ClientInformMapper extends BaseMapper<ClientInform> {
 }

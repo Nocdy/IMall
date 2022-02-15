@@ -16,6 +16,8 @@ public final class Constant {
     public final static String VISITOR="访客";
     public final static String ADMIN="管理员";
 
+    public final static Long REDIS_EXPIRE_DAYS=8L;
+
     private Constant(){
 
     }
