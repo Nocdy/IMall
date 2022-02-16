@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: client-consumer
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+
+server:
+  port: 8081

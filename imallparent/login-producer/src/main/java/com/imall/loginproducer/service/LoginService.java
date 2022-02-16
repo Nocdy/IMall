@@ -1,8 +1,8 @@
 package com.imall.loginproducer.service;
 
-import com.imall.loginproducer.dto.LoginRequest;
-import com.imall.loginproducer.dto.UserRegistry;
+import dto.LoginRequest;
 import dto.Result;
+import dto.UserRegistry;
 
 /**
  * @author Nocdy

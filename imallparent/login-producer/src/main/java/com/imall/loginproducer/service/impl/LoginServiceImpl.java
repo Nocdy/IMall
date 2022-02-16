@@ -1,10 +1,11 @@
 package com.imall.loginproducer.service.impl;
 
-import com.imall.loginproducer.dto.LoginRequest;
-import com.imall.loginproducer.dto.UserRegistry;
+import com.alibaba.fastjson.JSONObject;
 import com.imall.loginproducer.service.*;
 import com.imall.loginproducer.utils.CurrentUserUtils;
+import dto.LoginRequest;
 import dto.Result;
+import dto.UserRegistry;
 import emums.StatusCode;
 import entites.users.*;
 import lombok.RequiredArgsConstructor;
@@ -102,6 +103,7 @@ public class LoginServiceImpl implements LoginService {
         User user;
         List<Role> roles;
         String id;
+        JSONObject data=new JSONObject();
         String loginAccount=loginRequest.getLoginAccount();
         user=userService.getByUserName(loginAccount);
         if(user==null||!userService.check(loginRequest.getPassword(),user.getPassword())){
@@ -120,8 +122,8 @@ public class LoginServiceImpl implements LoginService {
                         .collect(Collectors.toList()));
         user.setAccountRoles(roles);
         try {
-            String token=createToken(user,loginRequest);
-            return new Result<>(token,
+            data.put("token",createToken(user,loginRequest));
+            return new Result<>(data,
                     StatusCode.LOGIN_SUCCESS.getCode(),
                     StatusCode.LOGIN_SUCCESS.getMessage());
         }

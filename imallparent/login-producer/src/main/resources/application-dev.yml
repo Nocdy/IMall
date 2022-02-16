@@ -10,3 +10,10 @@ spring:
     host: localhost
     password: 12345
     database: 0
+  application:
+    name: login-service-producer
+  cloud:
+    nacos:
+      server-addr:
+        localhost:8848
+

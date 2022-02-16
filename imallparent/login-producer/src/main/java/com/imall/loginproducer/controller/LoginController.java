@@ -1,13 +1,11 @@
 package com.imall.loginproducer.controller;
 
-import com.imall.loginproducer.dto.LoginRequest;
-import com.imall.loginproducer.dto.UserRegistry;
 import com.imall.loginproducer.service.LoginService;
+import dto.LoginRequest;
 import dto.Result;
+import dto.UserRegistry;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Nocdy
@@ -35,8 +33,6 @@ public class LoginController {
     public Result<Object> logout(){
         return loginService.logout();
     }
-
-
 
 
 }
