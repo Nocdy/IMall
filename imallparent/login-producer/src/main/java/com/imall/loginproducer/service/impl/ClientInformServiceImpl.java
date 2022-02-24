@@ -19,7 +19,7 @@ public class ClientInformServiceImpl extends ServiceImpl<ClientInformMapper, Cli
     public ClientInform getInformationByPhone(String phone) {
         QueryWrapper<ClientInform> queryWrapper=new QueryWrapper<>();
         queryWrapper
-                .select("user_id","client_name","client_phone","client_address","client_email","user_name")
+                .select("user_id","client_name","client_phone","client_address","client_email","user_name","client_gender")
                 .eq("client_phone",phone);
         return getOne(queryWrapper);
     }
@@ -40,6 +40,15 @@ public class ClientInformServiceImpl extends ServiceImpl<ClientInformMapper, Cli
                 .select("user_id")
                 .eq("client_email",email);
         return getOne(queryWrapper).getUserId();
+    }
+
+    @Override
+    public ClientInform getInformationByUserName(String userName) {
+        QueryWrapper<ClientInform> queryWrapper=new QueryWrapper<>();
+        queryWrapper
+                .select("user_id","client_name","client_phone","client_address","client_email","user_name","client_gender")
+                .eq("user_name",userName);
+        return getOne(queryWrapper);
     }
 
 }

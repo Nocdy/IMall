@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="test-axios" />
+        <module name="client-consumer" />
         <module name="imall-common-api" />
         <module name="login-producer" />
-        <module name="client-consumer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,6 +18,7 @@
       <module name="imall-common-api" target="8" />
       <module name="imallparent" target="8" />
       <module name="login-producer" target="8" />
+      <module name="test-axios" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -24,6 +26,7 @@
       <module name="client-consumer" options="-parameters" />
       <module name="imall-common-api" options="-parameters" />
       <module name="login-producer" options="-parameters" />
+      <module name="test-axios" options="-parameters" />
     </option>
   </component>
 </project>

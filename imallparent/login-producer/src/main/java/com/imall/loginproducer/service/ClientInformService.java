@@ -31,5 +31,12 @@ public interface ClientInformService extends IService<ClientInform> {
      */
     String getUserIdByEmail(String email);
 
+    /**
+     * 通过登录名称获取用户信息
+     * @param userName 登录名称
+     * @return 返回用户信息
+     */
+    ClientInform getInformationByUserName(String userName);
+
 
 }

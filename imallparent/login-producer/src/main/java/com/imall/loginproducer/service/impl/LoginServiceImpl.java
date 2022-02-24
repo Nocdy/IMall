@@ -54,12 +54,12 @@ public class LoginServiceImpl implements LoginService {
     static {
         REGISTRY_FAIL.put(VENDOR, () -> new Result<>(StatusCode.VENDOR_REGISTRY_FAIL.getCode(),
                 StatusCode.VENDOR_REGISTRY_FAIL.getMessage()));
-        REGISTRY_FAIL.put(USER, () -> new Result<>(StatusCode.USER_REGISTRY_FAIL.getCode(),
+        REGISTRY_FAIL.put(CLIENT, () -> new Result<>(StatusCode.USER_REGISTRY_FAIL.getCode(),
                 StatusCode.USER_REGISTRY_FAIL.getMessage()));
     }
 
     @Override
-    @Transactional(rollbackFor = {})
+    @Transactional
     public Result<Object> registry(UserRegistry registryRequest) {
         String type = registryRequest.getType();
         Vendor vendor = new Vendor();
@@ -78,7 +78,7 @@ public class LoginServiceImpl implements LoginService {
                 vendor.setUserId(user.getId());
                 accountRoleService.save(new AccountRole(user.getId(), roleId));
                 status = vendorService.save(vendor);
-            } else if (USER.equals(type)) {
+            } else if (CLIENT.equals(type)) {
                 clientInform.setPhone(registryRequest.getPhone());
                 clientInform.setUserName(registryRequest.getNickName());
                 clientInform.setName(registryRequest.getName());

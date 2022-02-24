@@ -5,10 +5,7 @@ import dto.LoginRequest;
 import dto.Result;
 import dto.UserRegistry;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Nocdy
@@ -35,6 +32,11 @@ public class LoginController {
     @PostMapping("/logout")
     public Result<Object> logout(){
         return loginService.logout();
+    }
+
+    @GetMapping("/getClientInfo")
+    public Result<Object> getClientInfo(@RequestHeader ("Authorization")String token){
+        return loginService.getClientInfo(token);
     }
 
 
