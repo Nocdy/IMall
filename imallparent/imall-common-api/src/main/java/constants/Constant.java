@@ -2,7 +2,7 @@ package constants;
 
 /**
  * @author Nocdy
- * @Description、
+ * @Description
  * @Date 2022/2/8 14:45
  */
 public final class Constant {
