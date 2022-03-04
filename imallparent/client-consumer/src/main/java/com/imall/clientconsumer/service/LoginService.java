@@ -1,9 +1,9 @@
 package com.imall.clientconsumer.service;
 
 import com.imall.clientconsumer.config.FeignConfiguration;
-import dto.LoginRequest;
-import dto.Result;
-import dto.UserRegistry;
+import com.imall.dto.LoginRequest;
+import com.imall.dto.Result;
+import com.imall.dto.UserRegistry;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,23 +22,23 @@ public interface LoginService {
 
     /**
      * 调用注册功能
-     * @param userRegistry
-     * @return
+     * @param userRegistry 注册请求
+     * @return 返回注册结果
      */
     @PostMapping("/registry")
     Result<Object> registry(@RequestBody UserRegistry userRegistry);
 
     /**
      * 调用登录功能
-     * @param loginRequest
-     * @return
+     * @param loginRequest 登录请求
+     * @return 返回登录结果
      */
     @PostMapping("/login")
     Result<Object> login(@RequestBody LoginRequest loginRequest);
 
     /**
-     * 调用注册功能
-     * @return
+     * 调用注销功能
+     * @return 返回注销结果
      */
     @PostMapping("/logout")
     Result<Object> logout();

@@ -1,7 +1,7 @@
 package com.imall.loginproducer.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import entites.users.Vendor;
+import com.imall.entities.users.Vendor;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -3,10 +3,10 @@ package com.imall.loginproducer.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.imall.loginproducer.service.ClientInformService;
 import com.imall.loginproducer.service.GetInfoService;
-import com.imall.loginproducer.utils.CurrentUserUtils;
-import dto.Result;
-import emums.StatusCode;
-import entites.users.ClientInform;
+import com.imall.utils.CurrentUserUtils;
+import com.imall.dto.Result;
+import com.imall.emums.StatusCode;
+import com.imall.entities.users.ClientInform;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

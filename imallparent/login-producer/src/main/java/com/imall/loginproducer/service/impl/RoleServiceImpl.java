@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imall.loginproducer.dao.RoleMapper;
 import com.imall.loginproducer.service.RoleService;
-import entites.users.Role;
+import com.imall.entities.users.Role;
 import org.springframework.stereotype.Service;
 
 /**

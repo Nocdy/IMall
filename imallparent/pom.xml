@@ -9,6 +9,7 @@
         <module>login-producer</module>
         <module>imall-common-api</module>
         <module>client-consumer</module>
+        <module>shopping-producer</module>
     </modules>
 
     <parent>

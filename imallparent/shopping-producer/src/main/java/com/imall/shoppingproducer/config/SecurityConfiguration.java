@@ -1,10 +1,10 @@
 package com.imall.shoppingproducer.config;
 
 
-import constants.SecurityConstants;
-import exception.JwtAccessDeniedHandler;
-import exception.JwtAuthenticationEntryPoint;
-import filter.JwtAuthorizationFilter;
+import com.imall.constants.SecurityConstants;
+import com.imall.exception.JwtAccessDeniedHandler;
+import com.imall.exception.JwtAuthenticationEntryPoint;
+import com.imall.filter.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -57,7 +57,7 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
                 .antMatchers(SecurityConstants.SWAGGER_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SYSTEM_WHITELIST).permitAll()
                 // 其他的接口都需要认证后才能请求
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 //添加自定义Filter
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), stringRedisTemplate))
@@ -79,7 +79,6 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(singletonList("*"));
-        // configuration.setAllowedOriginPatterns(singletonList("*"));
         configuration.setAllowedHeaders(singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "OPTIONS"));
         configuration.setExposedHeaders(singletonList(SecurityConstants.TOKEN_HEADER));

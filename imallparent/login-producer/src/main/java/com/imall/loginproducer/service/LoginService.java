@@ -1,8 +1,8 @@
 package com.imall.loginproducer.service;
 
-import dto.LoginRequest;
-import dto.Result;
-import dto.UserRegistry;
+import com.imall.dto.LoginRequest;
+import com.imall.dto.Result;
+import com.imall.dto.UserRegistry;
 
 /**
  * @author Nocdy
@@ -26,6 +26,11 @@ public interface LoginService {
      */
     Result<Object> login(LoginRequest loginRequest);
 
+
+    /**
+     * 登录服务
+     * @return 返回登出结果
+     */
     Result<Object> logout();
 
 }

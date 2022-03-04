@@ -11,6 +11,7 @@
         <module name="client-consumer" />
         <module name="imall-common-api" />
         <module name="login-producer" />
+        <module name="shopping-producer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +19,7 @@
       <module name="imall-common-api" target="8" />
       <module name="imallparent" target="8" />
       <module name="login-producer" target="8" />
+      <module name="shopping-producer" target="8" />
       <module name="test-axios" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -26,6 +28,7 @@
       <module name="client-consumer" options="-parameters" />
       <module name="imall-common-api" options="-parameters" />
       <module name="login-producer" options="-parameters" />
+      <module name="shopping-producer" options="-parameters" />
       <module name="test-axios" options="-parameters" />
     </option>
   </component>

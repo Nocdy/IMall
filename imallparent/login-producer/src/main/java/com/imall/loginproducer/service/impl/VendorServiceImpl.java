@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imall.loginproducer.dao.VendorMapper;
 import com.imall.loginproducer.service.VendorService;
-import entites.users.Vendor;
+import com.imall.entities.users.Vendor;
 import org.springframework.stereotype.Service;
 
 /**

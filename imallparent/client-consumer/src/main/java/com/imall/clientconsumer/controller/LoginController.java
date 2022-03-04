@@ -1,9 +1,9 @@
 package com.imall.clientconsumer.controller;
 
 import com.imall.clientconsumer.service.LoginService;
-import dto.LoginRequest;
-import dto.Result;
-import dto.UserRegistry;
+import com.imall.dto.LoginRequest;
+import com.imall.dto.Result;
+import com.imall.dto.UserRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

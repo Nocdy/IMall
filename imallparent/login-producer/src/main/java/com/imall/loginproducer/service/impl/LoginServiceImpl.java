@@ -1,20 +1,20 @@
 package com.imall.loginproducer.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imall.entities.users.*;
 import com.imall.loginproducer.service.*;
-import com.imall.loginproducer.utils.CurrentUserUtils;
-import dto.LoginRequest;
-import dto.Result;
-import dto.UserRegistry;
-import emums.StatusCode;
-import entites.users.*;
+import com.imall.utils.CurrentUserUtils;
+import com.imall.dto.LoginRequest;
+import com.imall.dto.Result;
+import com.imall.dto.UserRegistry;
+import com.imall.emums.StatusCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import utils.JwtTokenUtils;
+import com.imall.utils.JwtTokenUtils;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static constants.Constant.*;
+import static com.imall.constants.Constant.*;
 
 /**
  * @author Nocdy
@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public Result<Object> registry(UserRegistry registryRequest) {
         String type = registryRequest.getType();
         Vendor vendor = new Vendor();
@@ -156,7 +156,7 @@ public class LoginServiceImpl implements LoginService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         String token = JwtTokenUtils.createToken(user.getUserName(), user.getId(), authorities, loginRequest.getRememberMe());
-        stringRedisTemplate.opsForValue().set(user.getId(), token,REDIS_EXPIRE_DAYS, TimeUnit.DAYS);
+        stringRedisTemplate.opsForValue().set(user.getId(), token,REDIS_EXPIRE_EIGHT_DAYS, TimeUnit.SECONDS);
         return token;
     }
 

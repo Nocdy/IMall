@@ -2,9 +2,9 @@ package com.imall.loginproducer.controller;
 
 import com.imall.loginproducer.service.GetInfoService;
 import com.imall.loginproducer.service.LoginService;
-import dto.LoginRequest;
-import dto.Result;
-import dto.UserRegistry;
+import com.imall.dto.LoginRequest;
+import com.imall.dto.Result;
+import com.imall.dto.UserRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

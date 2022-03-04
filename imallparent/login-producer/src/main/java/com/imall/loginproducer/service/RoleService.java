@@ -1,7 +1,7 @@
 package com.imall.loginproducer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import entites.users.Role;
+import com.imall.entities.users.Role;
 
 /**
  * @author Nocdy

@@ -1,6 +1,6 @@
 package com.imall.loginproducer.service;
 
-import dto.Result;
+import com.imall.dto.Result;
 
 /**
  * @author Nocdy

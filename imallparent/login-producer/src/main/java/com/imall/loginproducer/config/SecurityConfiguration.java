@@ -1,10 +1,10 @@
 package com.imall.loginproducer.config;
 
 
-import constants.SecurityConstants;
-import com.imall.loginproducer.exception.JwtAccessDeniedHandler;
-import com.imall.loginproducer.exception.JwtAuthenticationEntryPoint;
-import com.imall.loginproducer.filter.JwtAuthorizationFilter;
+import com.imall.constants.SecurityConstants;
+import com.imall.exception.JwtAccessDeniedHandler;
+import com.imall.exception.JwtAuthenticationEntryPoint;
+import com.imall.filter.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -79,7 +79,6 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(singletonList("*"));
-        // configuration.setAllowedOriginPatterns(singletonList("*"));
         configuration.setAllowedHeaders(singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "OPTIONS"));
         configuration.setExposedHeaders(singletonList(SecurityConstants.TOKEN_HEADER));

@@ -1,8 +1,9 @@
 package com.imall.shoppingproducer.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import entities.mall.Goods;
+import com.imall.entities.mall.Goods;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.ResultHandler;
 
 /**
  * @author Nocdy
@@ -12,5 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-    Goods selectAll();
+    /**
+     * 用流式读取
+     * @param handler 获取结果
+     *
+     */
+    void selectAll(ResultHandler<Goods> handler);
 }

@@ -1,7 +1,7 @@
 package com.imall.loginproducer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import entites.users.AccountRole;
+import com.imall.entities.users.AccountRole;
 
 import java.util.List;
 
