@@ -10,15 +10,19 @@
         <module name="test-axios" />
         <module name="client-consumer" />
         <module name="imall-common-api" />
-        <module name="login-producer" />
+        <module name="flash-producer" />
         <module name="shopping-producer" />
+        <module name="message-handler" />
+        <module name="login-producer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="client-consumer" target="8" />
+      <module name="flash-producer" target="8" />
       <module name="imall-common-api" target="8" />
       <module name="imallparent" target="8" />
       <module name="login-producer" target="8" />
+      <module name="message-handler" target="8" />
       <module name="shopping-producer" target="8" />
       <module name="test-axios" target="1.8" />
     </bytecodeTargetLevel>
@@ -26,8 +30,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="client-consumer" options="-parameters" />
+      <module name="flash-producer" options="-parameters" />
       <module name="imall-common-api" options="-parameters" />
       <module name="login-producer" options="-parameters" />
+      <module name="message-handler" options="-parameters" />
       <module name="shopping-producer" options="-parameters" />
       <module name="test-axios" options="-parameters" />
     </option>

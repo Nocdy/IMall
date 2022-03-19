@@ -17,9 +17,14 @@ public final class Constant {
   //  public final static String ADMIN="admin";
 
     public final static Long REDIS_EXPIRE_EIGHT_DAYS=60*60*24*8L;
-    public final static long REDIS_EXPIRE_HALF_HOUR=60*30;
+    public final static Long REDIS_EXPIRE_AN_HOUR=60*60L;
+    public final static Long REDIS_EXPIRE_HALF_HOUR=60*30L;
+    public final static Long REDIS_EXPIRE_ONE_DAY=60*60*24L;
 
     public final static String REDIS_ALL_GOODS_KEY="AllGoods";
+
+    public final static String FLASH_PREFIX="FLASH_";
+    public final static String ORDER_LIST_PREFIX="List_";
 
     private Constant(){
 

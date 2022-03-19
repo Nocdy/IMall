@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/imallparent/client-consumer/client-consumer.iml" filepath="$PROJECT_DIR$/imallparent/client-consumer/client-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imallparent/flash-producer/flash-producer.iml" filepath="$PROJECT_DIR$/imallparent/flash-producer/flash-producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/imallparent/imall-common-api/imall-common-api.iml" filepath="$PROJECT_DIR$/imallparent/imall-common-api/imall-common-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/imallparent/imallparent.iml" filepath="$PROJECT_DIR$/imallparent/imallparent.iml" />
       <module fileurl="file://$PROJECT_DIR$/imallparent/login-producer/login-producer.iml" filepath="$PROJECT_DIR$/imallparent/login-producer/login-producer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imallparent/message-handler/message-handler.iml" filepath="$PROJECT_DIR$/imallparent/message-handler/message-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/imallparent/shopping-producer/shopping-producer.iml" filepath="$PROJECT_DIR$/imallparent/shopping-producer/shopping-producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-axios/test-axios.iml" filepath="$PROJECT_DIR$/test-axios/test-axios.iml" />
     </modules>

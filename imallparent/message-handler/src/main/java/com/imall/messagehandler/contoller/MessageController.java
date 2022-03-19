@@ -1,0 +1,39 @@
+package com.imall.messagehandler.contoller;
+
+import com.alibaba.fastjson.JSON;
+import com.imall.entities.mall.OrderList;
+import com.imall.messagehandler.service.OrderListService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.Message;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.function.Consumer;
+
+/**
+ * @author Nocdy
+ * @Description TODO
+ * @Date 2022/3/15 11:15
+ */
+@RestController
+@Slf4j
+@RequiredArgsConstructor
+public class MessageController{
+
+    private final OrderListService orderListService;
+
+    @Bean
+    Consumer<Message<String>> input(){
+        return stringMessage -> {
+            String message=stringMessage.getPayload();
+            log.info("接收到用户购物车信息: {}",message);
+            OrderList orderList= JSON.toJavaObject(JSON.parseObject(message),OrderList.class);
+            String listJson=JSON.toJSONString(orderList.getGoodsList());
+            orderList.setShoppingList(listJson);
+            orderListService.updateById(orderList);
+
+        };
+    }
+
+}

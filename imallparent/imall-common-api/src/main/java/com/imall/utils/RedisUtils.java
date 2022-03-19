@@ -114,6 +114,34 @@ public class RedisUtils {
         }
     }
 
+    public boolean setNx(String key, Object value) {
+        try {
+            redisTemplate.opsForValue().setIfAbsent(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean setNx(String key, Object value,long time) {
+        try {
+            if(time>0) {
+                redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.SECONDS);
+            }
+            else{
+                setNx(key,value);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
 
     /**
      * 普通缓存放入并设置时间

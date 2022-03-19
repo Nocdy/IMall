@@ -3,10 +3,12 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/imallparent/client-consumer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/client-consumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/imallparent/flash-producer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/imall-common-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/imall-common-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/login-producer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/login-producer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/imallparent/message-handler/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/shopping-producer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imallparent/src/main/resources" charset="UTF-8" />

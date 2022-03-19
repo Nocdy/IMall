@@ -2,8 +2,6 @@ package com.imall.shoppingproducer.service.impl;
 
 import com.imall.shoppingproducer.service.UploadFileService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -23,9 +21,8 @@ import java.io.IOException;
 public class UploadFileServiceImpl implements UploadFileService {
 
 
-    private static final Logger getLog = LoggerFactory.getLogger(UploadFileServiceImpl.class);
 
-    @Value(value = "${url}")
+    @Value(value = "${baseUrl}")
     private String baseUrl;
 
     @Override
@@ -41,7 +38,7 @@ public class UploadFileServiceImpl implements UploadFileService {
             String oldName = file.getOriginalFilename();
             String suffix = oldName != null ? oldName.substring(oldName.lastIndexOf(".")) : null;
             String newName = goodsId.toString() + suffix;
-            getLog.info("用户上传图片名称:{}", oldName);
+            log.info("用户上传图片名称:{}", oldName);
             File image = new File(dir + "/", newName);
             try {
                 log.info("将 {} 存储到 {} 中", newName, dir);

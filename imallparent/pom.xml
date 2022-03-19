@@ -10,12 +10,13 @@
         <module>imall-common-api</module>
         <module>client-consumer</module>
         <module>shopping-producer</module>
+        <module>message-handler</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.9</version>
+        <version>2.5.10</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -32,7 +33,7 @@
         <spring.cloud.alibaba.version>2021.1</spring.cloud.alibaba.version>
         <spring.cloud.version>2020.0.5</spring.cloud.version>
         <druid.boot.version>1.1.23</druid.boot.version>
-        <mybatis-plus.boot.version>3.4.3</mybatis-plus.boot.version>
+        <mybatis-plus.boot.version>3.5.1</mybatis-plus.boot.version>
         <log4j.version>2.14.1</log4j.version>
         <mysql.connector.version>8.0.26</mysql.connector.version>
         <guava.verison>30.1.1-jre</guava.verison>
