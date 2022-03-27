@@ -1,12 +1,19 @@
 package com.imall.messagehandler.contoller;
 
 import com.alibaba.fastjson.JSON;
+import com.imall.dto.OrderFlag;
+import com.imall.dto.Result;
+import com.imall.entities.mall.Order;
 import com.imall.entities.mall.OrderList;
+import com.imall.messagehandler.service.GenerateOrderService;
+import com.imall.messagehandler.service.OrderConsumerService;
 import com.imall.messagehandler.service.OrderListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.function.Consumer;
@@ -23,6 +30,10 @@ public class MessageController{
 
     private final OrderListService orderListService;
 
+    private final GenerateOrderService generateOrderService;
+
+    private final OrderConsumerService orderConsumerService;
+
     @Bean
     Consumer<Message<String>> input(){
         return stringMessage -> {
@@ -35,5 +46,34 @@ public class MessageController{
 
         };
     }
+
+    @Bean
+    Consumer<Message<String>> flashOrder(){
+        return stringMessage -> {
+            log.info("处理闪购订单");
+            String msg=stringMessage.getPayload();
+            Order order= JSON.toJavaObject(JSON.parseObject(msg),Order.class);
+            generateOrderService.generate(order,order.getGoodsIdList());
+        };
+    }
+
+    @Bean
+    Consumer<Message<String>> commonOrder(){
+        return stringMessage -> {
+            log.info("处理普通订单");
+            String msg=stringMessage.getPayload();
+            Order order=JSON.toJavaObject(JSON.parseObject(msg),Order.class);
+            if(generateOrderService.generate(order)){
+                log.info("生成订单成功");
+            };
+        };
+    }
+
+    @PostMapping("/confirmOrder")
+    public Result<Object> confirmOrder(@RequestBody OrderFlag orderFlag){
+        return orderConsumerService.confirm(orderFlag.getClientId(),orderFlag.getIsFlash());
+    }
+
+
 
 }

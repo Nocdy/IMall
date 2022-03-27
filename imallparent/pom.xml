@@ -11,6 +11,7 @@
         <module>client-consumer</module>
         <module>shopping-producer</module>
         <module>message-handler</module>
+        <module>flash-producer</module>
     </modules>
 
     <parent>

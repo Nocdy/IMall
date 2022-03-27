@@ -95,6 +95,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     public void submitUpdate(Goods goods) throws FileNotFoundException, FileUploadException, InterruptedException {
         log.info("call submitUpdate service");
         redisUtils.del(REDIS_ALL_GOODS_KEY);
+        goods.setVersion(0);
         getBaseMapper().insert(goods);
         String url=uploadFileService.uploadGoodsImage(goods.getFile(),goods.getId(),goods.getVendorId());
         if(url==null){
@@ -108,7 +109,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    @Scheduled(cron = "0 0,1,2,3 0 * * ?")
+   @Scheduled(cron = "0 0,1,2,3 0 * * ?")
     public void getFlashToRedisByDate() {
         log.info("开始获取当天闪购商品信息");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -118,7 +119,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
                 todayEnd.format(dateTimeFormatter),
                 resultContext -> {
             Goods goods=resultContext.getResultObject();
-            redisUtils.setNx(goods.getId().toString(),goods.getCount(),REDIS_EXPIRE_ONE_DAY);
+            String key=FLASH_PREFIX+goods.getId().toString();
+            redisUtils.setNx(key,goods.getCount(),REDIS_EXPIRE_ONE_DAY);
         });
     }
 

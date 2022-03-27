@@ -5,6 +5,7 @@ import com.imall.dto.Result;
 import com.imall.emums.StatusCode;
 import com.imall.entities.mall.Goods;
 import com.imall.shoppingproducer.service.GoodsService;
+import com.imall.shoppingproducer.service.PurchaseService;
 import com.imall.shoppingproducer.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,8 @@ public class ShoppingController {
     private final GoodsService goodsService;
 
     private final ShoppingListService shoppingListService;
+
+    private final PurchaseService purchaseService;
 
 
 
@@ -49,7 +52,7 @@ public class ShoppingController {
         }
     }
 
-    @GetMapping("/{cid}/getOne/{gid}")
+    @GetMapping("/getOne/{cid}/{gid}")
     public Result<Object> getOne(@PathVariable("cid")int cid,
                                  @PathVariable("gid") int gid){
         return new Result<>(goodsService.getOneAndSaveToRedis(gid,cid),
@@ -57,18 +60,20 @@ public class ShoppingController {
                 StatusCode.SUCCESS.getMessage());
     }
 
-    @GetMapping("/testFlash")
-    public Object getFlash(){
-        goodsService.getFlashToRedisByDate();
-        return "ok";
-    }
 
 
-    @PostMapping("/{cid}/addList/{gid}")
+    @PostMapping("/addList/{cid}/{gid}")
     public Result<Object> addList(@PathVariable("cid")int cid,
                                   @PathVariable("gid") int gid){
         Goods addGoods=goodsService.getById(gid);
         shoppingListService.addList(cid,addGoods);
+        return new Result<>(StatusCode.SUCCESS.getCode(),
+                StatusCode.SUCCESS.getMessage());
+    }
+
+    @GetMapping("/purchase/{cid}")
+    public Result<Object> purchase(@PathVariable("cid") int cid){
+        purchaseService.purchase(cid);
         return new Result<>(StatusCode.SUCCESS.getCode(),
                 StatusCode.SUCCESS.getMessage());
     }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.imall.constants.Constant.ORDER_LIST_PREFIX;
+import static com.imall.constants.Constant.REDIS_EXPIRE_ONE_DAY;
 import static com.imall.constants.MessageQueueConstants.INPUT_0_CHANNEL;
 
 /**
@@ -48,7 +49,7 @@ public class ShoppingListServiceImpl extends ServiceImpl<OrderListMapper, OrderL
                getBaseMapper().insert(newList);
                result=newList;
            }
-           redisUtils.set(key,result);
+           redisUtils.set(key,result,REDIS_EXPIRE_ONE_DAY);
            return result;
         }
     }
@@ -67,7 +68,7 @@ public class ShoppingListServiceImpl extends ServiceImpl<OrderListMapper, OrderL
         }
         updateList.setGoodsList(goodsList);
         iMessage.sendMessage(JSON.toJSONString(updateList),INPUT_0_CHANNEL);
-        redisUtils.set(key,updateList);
+        redisUtils.set(key,updateList,REDIS_EXPIRE_ONE_DAY);
 
     }
 }

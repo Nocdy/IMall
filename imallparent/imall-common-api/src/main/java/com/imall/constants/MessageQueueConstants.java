@@ -8,5 +8,9 @@ package com.imall.constants;
 public final class MessageQueueConstants {
 
     public static final String INPUT_0_CHANNEL="input-in-0";
+    public static final String FLASH_ORDER_0_CHANNEL="flashOrder-in-0";
+    public static final String COMMON_ORDER_0_CHANNEL="commonOrder-in-0";
+    public static final String END_SELL_0_CHANNEL="endSell-in-0";
+    public static final String ROLL_BACK_0_CHANNEL="rollBack-in-0";
 
 }

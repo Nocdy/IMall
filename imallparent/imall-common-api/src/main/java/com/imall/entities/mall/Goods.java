@@ -3,6 +3,7 @@ package com.imall.entities.mall;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -63,6 +64,9 @@ public class Goods implements Serializable {
     @JsonIgnore
     @TableField(exist = false)
     MultipartFile file;
+
+    @Version
+    Integer version;
 
 
 }

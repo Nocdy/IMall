@@ -15,6 +15,7 @@
         <result column="sell_date" jdbcType="TIMESTAMP" property="sellDate"/>
         <result column="vendor_id" jdbcType="INTEGER" property="vendorId"/>
         <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
     </resultMap>
 
     <select id="selectAll" resultMap="Goods" resultSetType="FORWARD_ONLY" fetchSize="-2147483648">
