@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @Date 2022/3/27 20:22
  */
 @Component
-@FeignClient(value = "flash-producer", configuration = FeignConfiguration.class)
+@FeignClient(value = "shopping-producer", configuration = FeignConfiguration.class)
 public interface ShoppingService {
 
     @GetMapping("/getList/{listNum}")
