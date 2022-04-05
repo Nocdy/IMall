@@ -15,7 +15,7 @@ spring:
   cloud:
     nacos:
       server-addr:
-        localhost:8848
+        47.106.185.49:8848
 
 server:
   port: 8081
