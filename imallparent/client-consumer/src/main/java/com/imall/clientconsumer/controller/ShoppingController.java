@@ -35,7 +35,7 @@ public class ShoppingController {
         return confirmService.confirmOrder(orderFlag);
     }
 
-    @RequestMapping("/testFlash/{cid}/{gid}")
+    @RequestMapping("/Flash/{cid}/{gid}")
     Result<Object> flash(@PathVariable("cid") Integer cid,
                          @PathVariable("gid") Integer gid){
         return fLashService.flash(cid,gid);

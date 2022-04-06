@@ -49,8 +49,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         if(status) {
             getBaseMapper().selectAll(resultContext -> {
                 Goods goods = resultContext.getResultObject();
-                if(redisUtils.lSet(REDIS_ALL_GOODS_KEY, goods)){
-                    log.info("将商品id: {} 插入key: {} 的list中失败",goods.getId(),REDIS_ALL_GOODS_KEY);
+                if(goods.getEndDate().compareTo(LocalDateTime.now()) > 0) {
+                    if (redisUtils.lSet(REDIS_ALL_GOODS_KEY, goods)) {
+                        log.info("将商品id: {} 插入key: {} 的list中失败", goods.getId(), REDIS_ALL_GOODS_KEY);
+                    }
                 }
             });
         }

@@ -53,7 +53,7 @@ public class FlashController {
 
 
 
-    @RequestMapping("/testFlash/{cid}/{gid}")
+    @RequestMapping("/Flash/{cid}/{gid}")
     public Result<Object> flash(@PathVariable("cid") Integer cid,
                         @PathVariable("gid") Integer gid){
         JSONObject result=new JSONObject();

@@ -43,7 +43,7 @@ public class UploadFileServiceImpl implements UploadFileService {
             try {
                 log.info("将 {} 存储到 {} 中", newName, dir);
                 file.transferTo(image);
-                return baseUrl +"/goods-image/"+vendorId+"/"+ newName;
+                return baseUrl +"goods-image/"+vendorId+"/"+ newName;
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
