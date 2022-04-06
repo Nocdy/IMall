@@ -20,8 +20,8 @@
 
     <select id="selectAll" resultMap="Goods" resultSetType="FORWARD_ONLY" fetchSize="-2147483648">
         select *
-        where goods_cout>0
         from goods
+        where goods_count>0
         order by goods_id desc
     </select>
 

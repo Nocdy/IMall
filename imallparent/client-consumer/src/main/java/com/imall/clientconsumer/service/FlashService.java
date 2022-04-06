@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient(value = "flash-producer", configuration = FeignConfiguration.class)
 public interface FlashService {
 
-    @RequestMapping("/testFlash/{cid}/{gid}")
+    @RequestMapping("/Flash/{cid}/{gid}")
     Result<Object> flash(@PathVariable("cid") Integer cid,
                          @PathVariable("gid") Integer gid);
 
