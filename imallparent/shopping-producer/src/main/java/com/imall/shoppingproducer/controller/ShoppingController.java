@@ -55,7 +55,9 @@ public class ShoppingController {
     @GetMapping("/getOne/{cid}/{gid}")
     public Result<Object> getOne(@PathVariable("cid")int cid,
                                  @PathVariable("gid") int gid){
-        return new Result<>(goodsService.getOneAndSaveToRedis(gid,cid),
+        JSONObject data=new JSONObject();
+        data.put("goods",goodsService.getOneAndSaveToRedis(gid,cid));
+        return new Result<>(data,
                 StatusCode.SUCCESS.getCode(),
                 StatusCode.SUCCESS.getMessage());
     }

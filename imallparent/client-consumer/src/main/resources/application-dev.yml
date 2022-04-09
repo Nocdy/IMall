@@ -4,6 +4,14 @@ spring:
   cloud:
     nacos:
       server-addr: 47.106.185.49:8848
+#开启OpenFeign使用OkHttp作为底层的client
+feign:
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        loggerLevel: full
 
 server:
   port: 801

@@ -31,4 +31,14 @@ public class GetInfoServiceImpl implements GetInfoService {
         data.put("Client",clientInform);
         return new Result<>(data, StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
     }
+
+    @Override
+    public Result<Object> getUserId() {
+        JSONObject data=new JSONObject();
+        String name=currentUserUtils.getCurrentUserName();
+        Integer id=clientInformService.getClientIdByUserName(name);
+        data.put("clientId",id);
+        return new Result<>(data,StatusCode.SUCCESS.getCode(),
+                StatusCode.SUCCESS.getMessage());
+    }
 }

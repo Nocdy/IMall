@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/imallparent/shopping-producer/pom.xml" />
         <option value="$PROJECT_DIR$/imallparent/message-handler/pom.xml" />
         <option value="$PROJECT_DIR$/imallparent/flash-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/test-compose/pom.xml" />
       </list>
     </option>
   </component>

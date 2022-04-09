@@ -16,4 +16,11 @@ public interface GetInfoService {
      */
    Result<Object> getCurrentClientInfo();
 
+
+    /**
+     * 获取客户id
+     * @return 返回客户id
+     */
+    Result<Object> getUserId();
+
 }

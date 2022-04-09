@@ -50,4 +50,9 @@ public interface LoginService {
      */
     @GetMapping("/getClientInfo")
     Result<Object> getClientInfo(@RequestHeader("Authorization")String token);
+
+
+    @GetMapping("/getUserId")
+    public Result<Object> getUserId();
+
 }

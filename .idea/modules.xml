@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/imallparent/message-handler/message-handler.iml" filepath="$PROJECT_DIR$/imallparent/message-handler/message-handler.iml" />
       <module fileurl="file://$PROJECT_DIR$/imallparent/shopping-producer/shopping-producer.iml" filepath="$PROJECT_DIR$/imallparent/shopping-producer/shopping-producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-axios/test-axios.iml" filepath="$PROJECT_DIR$/test-axios/test-axios.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-compose/test-compose.iml" filepath="$PROJECT_DIR$/test-compose/test-compose.iml" />
     </modules>
   </component>
 </project>

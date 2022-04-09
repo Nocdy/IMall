@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="test-axios" />
+        <module name="test-compose" />
         <module name="client-consumer" />
         <module name="imall-common-api" />
         <module name="flash-producer" />
@@ -25,6 +26,7 @@
       <module name="message-handler" target="8" />
       <module name="shopping-producer" target="8" />
       <module name="test-axios" target="1.8" />
+      <module name="test-compose" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -36,6 +38,7 @@
       <module name="message-handler" options="-parameters" />
       <module name="shopping-producer" options="-parameters" />
       <module name="test-axios" options="-parameters" />
+      <module name="test-compose" options="-parameters" />
     </option>
   </component>
 </project>

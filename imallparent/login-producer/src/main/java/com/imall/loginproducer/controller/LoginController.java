@@ -45,4 +45,11 @@ public class LoginController {
     }
 
 
+    @GetMapping("/getUserId")
+    @PreAuthorize("hasAnyRole('ROLE_client')")
+    public Result<Object> getUserId(){
+        return  getInfoService.getUserId();
+    }
+
+
 }

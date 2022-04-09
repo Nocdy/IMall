@@ -106,7 +106,7 @@ public class LoginServiceImpl implements LoginService {
         JSONObject data=new JSONObject();
         String loginAccount=loginRequest.getLoginAccount();
         user=userService.getByUserName(loginAccount);
-        if(user==null||!userService.check(loginRequest.getPassword(),user.getPassword())){
+        if(user==null){
             if(loginAccount.indexOf(EMAIL_REGEX)==-1){
                 id=clientInformService.getUserIdByPhone(loginAccount);
             }
@@ -115,22 +115,28 @@ public class LoginServiceImpl implements LoginService {
             }
             user=userService.getById(id);
         }
-        roles = roleService.getBaseMapper().selectBatchIds(
-                accountRoleService.getRolesIdByUserId(user.getId())
-                        .stream()
-                        .map(AccountRole::getRoleId)
-                        .collect(Collectors.toList()));
-        user.setAccountRoles(roles);
-        try {
-            data.put("token",createToken(user,loginRequest));
-            return new Result<>(data,
-                    StatusCode.LOGIN_SUCCESS.getCode(),
-                    StatusCode.LOGIN_SUCCESS.getMessage());
+        if(user!=null&&userService.check(loginRequest.getPassword(),user.getPassword())) {
+            roles = roleService.getBaseMapper().selectBatchIds(
+                    accountRoleService.getRolesIdByUserId(user.getId())
+                            .stream()
+                            .map(AccountRole::getRoleId)
+                            .collect(Collectors.toList()));
+            user.setAccountRoles(roles);
+            try {
+                data.put("token", createToken(user, loginRequest));
+                return new Result<>(data,
+                        StatusCode.LOGIN_SUCCESS.getCode(),
+                        StatusCode.LOGIN_SUCCESS.getMessage());
+            } catch (BadCredentialsException badCredentialsException) {
+                return new Result<>(StatusCode.LOGIN_FAIL.getCode(),
+                        StatusCode.LOGIN_FAIL.getMessage());
+            }
         }
-        catch (BadCredentialsException badCredentialsException){
+        else{
             return new Result<>(StatusCode.LOGIN_FAIL.getCode(),
                     StatusCode.LOGIN_FAIL.getMessage());
         }
+
 
     }
 
@@ -145,6 +151,8 @@ public class LoginServiceImpl implements LoginService {
                     StatusCode.ERROR.getMessage());
         }
     }
+
+
 
     private String createToken(User user, LoginRequest loginRequest) {
         if (!userService.check(loginRequest.getPassword(), user.getPassword())) {

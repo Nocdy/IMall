@@ -38,5 +38,12 @@ public interface ClientInformService extends IService<ClientInform> {
      */
     ClientInform getInformationByUserName(String userName);
 
+    /**
+     * 根据用户名获得客户id
+     * @param userName 用户名字
+     * @return 返回客户id
+     */
+    Integer getClientIdByUserName(String userName);
+
 
 }

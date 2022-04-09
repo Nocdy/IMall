@@ -40,5 +40,11 @@ public class LoginController {
     }
 
 
+    @GetMapping("/getUserId")
+    public Result<Object> getUserId(){
+        return  loginService.getUserId();
+    }
+
+
 
 }

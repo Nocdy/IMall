@@ -51,4 +51,13 @@ public class ClientInformServiceImpl extends ServiceImpl<ClientInformMapper, Cli
         return getOne(queryWrapper);
     }
 
+    @Override
+    public Integer getClientIdByUserName(String userName) {
+        QueryWrapper<ClientInform> queryWrapper=new QueryWrapper<>();
+        queryWrapper
+                .eq("user_name",userName);
+        ClientInform clientInform= getOne(queryWrapper);
+        return  clientInform.getId();
+    }
+
 }
