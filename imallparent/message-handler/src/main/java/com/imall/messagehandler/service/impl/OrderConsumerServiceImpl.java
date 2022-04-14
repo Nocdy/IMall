@@ -1,6 +1,7 @@
 package com.imall.messagehandler.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imall.dto.Result;
 import com.imall.emums.StatusCode;
 import com.imall.entities.mall.Order;
@@ -8,6 +9,7 @@ import com.imall.messagehandler.service.GoodsService;
 import com.imall.messagehandler.service.IMessage;
 import com.imall.messagehandler.service.OrderConsumerService;
 import com.imall.messagehandler.service.OrderService;
+import com.imall.utils.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,14 +33,19 @@ public class OrderConsumerServiceImpl implements OrderConsumerService {
 
     private final IMessage iMessage;
 
+    private final ObjectMapper objectMapper;
+
+    private final RedisUtils redisUtils;
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public Result<Object> confirm(Integer clientId, boolean isFlash) {
+    public Result<Object>  confirm(Integer clientId, boolean isFlash) {
         log.info("进行确认订单业务");
         JSONObject result = new JSONObject();
+        String key=OrderServiceImpl.GENERATE_KEY.get(isFlash).apply(clientId.toString());
         if (orderService.confirmOrder(clientId, isFlash)) {
-            Order order = orderService.showOrder(clientId, isFlash);
+            Order order = objectMapper.convertValue(redisUtils.get(key), Order.class);
             order.getGoodsList().forEach(goods -> {
                 if (!goodsService.updatePessimistic(goods)) {
                     if (goods.getIsPlash()) {

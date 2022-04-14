@@ -33,7 +33,7 @@ public class LoginController {
         return loginService.login(loginRequest);
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public Result<Object> logout(){
         return loginService.logout();
     }

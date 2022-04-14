@@ -1,5 +1,7 @@
 package com.imall.clientconsumer.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.imall.clientconsumer.handler.MyBlockHandler;
 import com.imall.clientconsumer.service.ConfirmService;
 import com.imall.clientconsumer.service.FlashService;
 import com.imall.clientconsumer.service.ShoppingService;
@@ -36,6 +38,7 @@ public class ShoppingController {
     }
 
     @RequestMapping("/Flash/{cid}/{gid}")
+    @SentinelResource(value = "Flash",blockHandlerClass = MyBlockHandler.class,blockHandler = "flashHandler")
     Result<Object> flash(@PathVariable("cid") Integer cid,
                          @PathVariable("gid") Integer gid){
         return fLashService.flash(cid,gid);
@@ -47,16 +50,25 @@ public class ShoppingController {
         return shoppingService.getOne(cid,gid);
     }
 
-    @PostMapping("/addList/{cid}/{gid}")
+    @GetMapping("/addList/{cid}/{gid}")
     Result<Object> addList(@PathVariable("cid") int cid,
                            @PathVariable("gid") int gid){
         return shoppingService.addList(cid,gid);
     }
 
+    @GetMapping("/showList/{cid}")
+    public Result<Object> showList(@PathVariable("cid") int cid){
+        return  shoppingService.showList(cid);
+    }
 
     @GetMapping("/purchase/{cid}")
     Result<Object> purchase(@PathVariable("cid") int cid){
         return shoppingService.purchase(cid);
+    }
+
+    @PostMapping("/showOrder")
+    Result<Object> showOrder(@RequestBody OrderFlag orderFlag){
+        return  confirmService.showOrder(orderFlag);
     }
 
 }

@@ -1,11 +1,14 @@
 package com.imall.exception;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 
 /**
  * @author Nocdy
@@ -20,6 +23,18 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+        HashMap<String, Object> map = new HashMap<>(2);
+        map.put("status",HttpServletResponse.SC_UNAUTHORIZED);
+        map.put("uri", request.getRequestURI());
+        map.put("msg", "你的身份已过期");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String resBody = objectMapper.writeValueAsString(map);
+        PrintWriter printWriter = response.getWriter();
+        printWriter.print(resBody);
+        printWriter.flush();
+        printWriter.close();
+
+
     }
 }

@@ -34,7 +34,16 @@ public enum StatusCode implements Serializable {
 
     ERROR(5000,HttpStatus.INTERNAL_SERVER_ERROR,"发生错误，请联系管理员或稍后重试"),
 
+    EXCEPTION(5001,HttpStatus.INTERNAL_SERVER_ERROR,"发生异常"),
+
+    FALLBACK(5002,HttpStatus.SERVICE_UNAVAILABLE,"服务器不可用"),
+
+    BLOCK(6000,HttpStatus.TOO_MANY_REQUESTS,"当人访问人数过多，请稍后尝试！"),
+
     METHOD_ARGUMENT_NOT_VALID(1003, HttpStatus.BAD_REQUEST, "方法参数验证失败");
+
+
+
 
     private final int code;
     private final String message;

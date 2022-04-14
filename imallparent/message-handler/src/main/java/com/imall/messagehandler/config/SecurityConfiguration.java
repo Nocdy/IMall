@@ -1,4 +1,4 @@
-package com.imall.shoppingproducer.config;
+package com.imall.messagehandler.config;
 
 
 import com.imall.constants.SecurityConstants;
@@ -7,7 +7,6 @@ import com.imall.exception.JwtAuthenticationEntryPoint;
 import com.imall.filter.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -55,7 +54,6 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter {
                 // 指定的接口直接放行
                 // swagger
                 .antMatchers(SecurityConstants.SWAGGER_WHITELIST).permitAll()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SHOPPING_WHITELIST).permitAll()
                 // 其他的接口都需要认证后才能请求
                 .anyRequest().authenticated()
                 .and()

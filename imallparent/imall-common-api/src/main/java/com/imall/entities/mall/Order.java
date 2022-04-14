@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,9 @@ public class Order {
     }
 
     public void convertListToJson(){
-        this.shoppingList= JSON.toJSONString(this.goodsList);
+        List<Integer> shortList=new ArrayList<>();
+        this.goodsList.forEach(goods -> shortList.add(goods.getId()));
+        this.shoppingList= JSON.toJSONString(shortList);
     }
 
 
@@ -68,5 +71,6 @@ public class Order {
 
     @TableField(exist = false)
     private List<Goods> goodsList;
+
 
 }

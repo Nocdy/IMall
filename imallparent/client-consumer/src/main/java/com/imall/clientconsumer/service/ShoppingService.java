@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Nocdy
@@ -25,9 +24,12 @@ public interface ShoppingService {
                           @PathVariable("gid") int gid);
 
 
-    @PostMapping("/addList/{cid}/{gid}")
+    @GetMapping("/addList/{cid}/{gid}")
     Result<Object> addList(@PathVariable("cid") int cid,
                            @PathVariable("gid") int gid);
+
+    @GetMapping("/showList/{cid}")
+    Result<Object> showList(@PathVariable("cid") int cid);
 
 
     @GetMapping("/purchase/{cid}")

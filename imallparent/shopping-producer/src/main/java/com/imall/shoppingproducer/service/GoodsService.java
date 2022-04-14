@@ -2,6 +2,7 @@ package com.imall.shoppingproducer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.imall.entities.mall.Goods;
+import org.apache.ibatis.annotations.Param;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 
 import java.io.FileNotFoundException;
@@ -47,6 +48,13 @@ public interface GoodsService extends IService<Goods> {
      * 定时获取当天闪购商品信息
      */
     void getFlashToRedisByDate();
+
+    /**
+     * 搜索商品
+     * @param keyword 搜索关键次
+     * @return 返回搜索结果
+     */
+    List<Goods> searchList(@Param("keyword") String keyword);
 
 
 }

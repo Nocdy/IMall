@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
 public class LoginController {
 
     private final LoginService loginService;
@@ -29,14 +28,14 @@ public class LoginController {
         return loginService.registry(userRegistry);
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public Result<Object> logout(){
         return loginService.logout();
     }
 
     @GetMapping("/getClientInfo")
     public Result<Object> getClientInfo(@RequestHeader ("Authorization")String token){
-        return loginService.getClientInfo(token);
+        return loginService.getClientInfo();
     }
 
 

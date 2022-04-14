@@ -14,7 +14,7 @@ public final class SecurityConstants {
     /**
      * rememberMe 为 false 的时候过期时间是1个小时
      */
-    public static final long EXPIRATION = 60*60l;
+    public static final long EXPIRATION = 60*60L;
 
     /**
      * rememberMe 为 true 的时候过期时间是7天
@@ -52,6 +52,13 @@ public final class SecurityConstants {
     public static final String[] SYSTEM_WHITELIST = {
             "/login",
             "/registry",
+    };
+
+
+    public static final String[] SHOPPING_WHITELIST={
+            "/getList/*",
+            "/updateGoods",
+            "/getOne/**"
     };
 
     private SecurityConstants() {

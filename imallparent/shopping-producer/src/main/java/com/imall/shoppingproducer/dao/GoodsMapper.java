@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.ResultHandler;
 
+import java.util.List;
+
 /**
  * @author Nocdy
  * @Description TODO
@@ -30,4 +32,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     void selectTodayFlash(@Param("todayStart") String todayStart,
                           @Param("todayEnd") String todayEnd,
                           ResultHandler<Goods> handler);
+
+
 }

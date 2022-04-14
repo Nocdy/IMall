@@ -62,9 +62,18 @@ public class ShoppingController {
                 StatusCode.SUCCESS.getMessage());
     }
 
+    @GetMapping("/showList/{cid}")
+    public Result<Object> showList(@PathVariable("cid") int cid){
+        JSONObject data=new JSONObject();
+        data.put("shoppingList",shoppingListService.showList(cid));
+        return new Result<>(data,
+                StatusCode.SUCCESS.getCode(),
+                StatusCode.SUCCESS.getMessage());
+    }
 
 
-    @PostMapping("/addList/{cid}/{gid}")
+
+    @GetMapping("/addList/{cid}/{gid}")
     public Result<Object> addList(@PathVariable("cid")int cid,
                                   @PathVariable("gid") int gid){
         Goods addGoods=goodsService.getById(gid);

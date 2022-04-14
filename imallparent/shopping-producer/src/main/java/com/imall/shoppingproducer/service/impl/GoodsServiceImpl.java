@@ -1,6 +1,8 @@
 package com.imall.shoppingproducer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imall.entities.mall.Goods;
 import com.imall.shoppingproducer.dao.GoodsMapper;
@@ -21,6 +23,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.imall.constants.Constant.*;
 
@@ -51,7 +54,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
                 Goods goods = resultContext.getResultObject();
                 if(goods.getEndDate().compareTo(LocalDateTime.now()) > 0) {
                     if (redisUtils.lSet(REDIS_ALL_GOODS_KEY, goods)) {
-                        log.info("将商品id: {} 插入key: {} 的list中失败", goods.getId(), REDIS_ALL_GOODS_KEY);
+                        log.info("将商品id: {} 插入key: {} 的list中成功", goods.getId(), REDIS_ALL_GOODS_KEY);
                     }
                 }
             });
@@ -87,7 +90,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             redisUtils.set(gid,result,REDIS_EXPIRE_HALF_HOUR);
         }
         if(result.getIsPlash()){
-            redisUtils.set(FLASH_PREFIX+cid,result.getPlashCount().toString(),REDIS_EXPIRE_HALF_HOUR);
+            String key=FLASH_PREFIX+result.getId().toString();
+            redisUtils.setNx(key,result.getCount(),REDIS_EXPIRE_ONE_DAY);
+            redisUtils.set(FLASH_PREFIX+cid,result.getPlashCount(),REDIS_EXPIRE_HALF_HOUR);
         }
         return  result;
     }
@@ -111,7 +116,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-   @Scheduled(cron = "0 0,1,2,3 0 * * ?")
+   @Scheduled(cron = "0 0/15 * * * * *")
     public void getFlashToRedisByDate() {
         log.info("开始获取当天闪购商品信息");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -124,6 +129,32 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             String key=FLASH_PREFIX+goods.getId().toString();
             redisUtils.setNx(key,goods.getCount(),REDIS_EXPIRE_ONE_DAY);
         });
+    }
+
+    @Override
+    public List<Goods> searchList(String keyword) {
+        String key=SEARCH_PREFIX+keyword;
+        List<Goods> result = new ArrayList<>();
+        if(redisUtils.hasKey(key)){
+            result=objectMapper.convertValue(redisUtils.get(key), new TypeReference<ArrayList<Goods>>(){});
+        }
+        else {
+            QueryWrapper<Goods> wrapper1 = new QueryWrapper<>();
+            QueryWrapper<Goods> wrapper2 = new QueryWrapper<>();
+            wrapper1.likeLeft("goods_name", keyword);
+            wrapper2.likeRight("goods_name", keyword);
+            result.addAll(getBaseMapper()
+                    .selectList(wrapper1)
+                    .stream()
+                    .filter(goods -> goods.getEndDate().compareTo(LocalDateTime.now()) > 0)
+                    .collect(Collectors.toList()));
+            result.addAll(getBaseMapper()
+                    .selectList(wrapper2)
+                    .stream().filter(goods -> goods.getEndDate().compareTo(LocalDateTime.now()) > 0)
+                    .collect(Collectors.toList()));
+            redisUtils.set(key,result);
+        }
+        return  result;
     }
 
 

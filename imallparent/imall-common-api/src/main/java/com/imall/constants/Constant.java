@@ -29,6 +29,7 @@ public final class Constant {
     public final static String FLASH_ORDER_PREFIX="FLASH_Order_";
     public final static String ORDER_PREFIX="Order_";
     public final static String FLASH_UUID_PREFIX="FLASH_ID_";
+    public final static  String SEARCH_PREFIX="SEARCH_";
 
 
 

@@ -1,8 +1,11 @@
 package com.imall.messagehandler.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.imall.dto.Result;
+import com.imall.emums.StatusCode;
 import com.imall.entities.mall.Order;
 import com.imall.messagehandler.dao.OrderMapper;
 import com.imall.messagehandler.service.IMessage;
@@ -33,7 +36,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final RedisUtils redisUtils;
 
-    private final static HashMap<Boolean, Function<String,String>> GENERATE_KEY=new HashMap<>();
+    public final static HashMap<Boolean, Function<String,String>> GENERATE_KEY=new HashMap<>();
 
     private final IMessage iMessage;
 
@@ -50,7 +53,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Order newOrder=new Order();
         boolean result;
         if(redisUtils.get(key)!=null){
-            Order confirmOrder=showOrder(clientId,isFlash);
+            Order confirmOrder=objectMapper.convertValue(redisUtils.get(key), Order.class);
             confirmOrder.setIsFinish(true);
             newOrder.setOrder(confirmOrder);
             log.info("确认订单 {}",newOrder);
@@ -63,10 +66,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order showOrder(Integer clientId, boolean isFlash) {
+    public Result<Object> showOrder(Integer clientId, boolean isFlash) {
+        JSONObject result=new JSONObject();
         String key=GENERATE_KEY.get(isFlash).apply(clientId.toString());
-        return objectMapper.convertValue(redisUtils.get(key),Order.class);
+        if (redisUtils.hasKey(key)) {
+            Order order = objectMapper.convertValue(redisUtils.get(key), Order.class);
+            Long expiredTime = redisUtils.getExpire(key);
+            result.put("Order", order);
+            result.put("expiredTime", expiredTime);
+        }
+        return new Result<>(result, StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
     }
+
+
 
     @Override
     public void delOrderInRedis(Integer clientId, boolean isFlash) {

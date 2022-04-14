@@ -4,6 +4,17 @@ spring:
   cloud:
     nacos:
       server-addr: 47.106.185.49:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8085
+        port: 8719 #控制台与应用交互的端口
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 #开启OpenFeign使用OkHttp作为底层的client
 feign:
   okhttp:
@@ -12,6 +23,8 @@ feign:
     config:
       default:
         loggerLevel: full
+  sentinel:
+    enabled: true
 
 server:
   port: 801

@@ -19,4 +19,7 @@ public interface ConfirmService {
     @PostMapping("/confirmOrder")
     Result<Object> confirmOrder(@RequestBody OrderFlag orderFlag);
 
+    @PostMapping("/showOrder")
+    Result<Object> showOrder(@RequestBody OrderFlag orderFlag);
+
 }

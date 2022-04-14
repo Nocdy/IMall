@@ -30,7 +30,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         if(goods!=null){
             if(goods.getCount()>0) {
                 goods.setCount(goods.getCount() - 1);
-                goods.setVersion(goods.getVersion()+1);
                 return updateById(goods);
             }
         }
