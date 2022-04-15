@@ -45,6 +45,7 @@ public class GenerateOrderServiceImpl implements GenerateOrderService {
             saveDate(order,key,new ArrayList<>());
         }
         else {
+            oldOrder.setGoodsIdList(goodsIdList);
             oldOrder.setId(order.getId());
             saveDate(oldOrder,key,oldOrder.getGoodsList());
         }
@@ -65,9 +66,7 @@ public class GenerateOrderServiceImpl implements GenerateOrderService {
 
     private void saveDate(Order order,String key,List<Goods> goodsList){
         order.setDate(LocalDateTime.now());
-        order.getGoodsIdList().forEach(id -> {
-            goodsList.add(goodsService.getGoodsPessimistic(id));
-        });
+        order.getGoodsIdList().forEach(id -> goodsList.add(goodsService.getGoodsPessimistic(id)));
         order.setGoodsList(goodsList);
         order.convertListToJson();
         redisUtils.set(key,order,REDIS_EXPIRE_A_QUARTER);

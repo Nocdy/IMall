@@ -35,5 +35,10 @@ public interface ShoppingService {
     @GetMapping("/purchase/{cid}")
     Result<Object> purchase(@PathVariable("cid") int cid);
 
+    @GetMapping("/search/{keyword}")
+    Result<Object> searchGoods(@PathVariable("keyword") String keyword);
+
+    @GetMapping("/carouselGet")
+    Result<Object> carouselGet();
 
 }

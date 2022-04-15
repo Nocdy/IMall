@@ -58,7 +58,8 @@ public final class SecurityConstants {
     public static final String[] SHOPPING_WHITELIST={
             "/getList/*",
             "/updateGoods",
-            "/getOne/**"
+            "/getOne/**",
+            "/goods-image/**",
     };
 
     private SecurityConstants() {

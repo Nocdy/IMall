@@ -70,8 +70,8 @@ public class OrderConsumerServiceImpl implements OrderConsumerService {
                 orderService.rollBackForFlash(rollBackOrder);
             }
             return new Result<>(result,
-                    StatusCode.ERROR.getCode(),
-                    StatusCode.ERROR.getMessage());
+                    StatusCode.SUCCESS.getCode(),
+                    StatusCode.SUCCESS.getMessage());
         }
     }
 }

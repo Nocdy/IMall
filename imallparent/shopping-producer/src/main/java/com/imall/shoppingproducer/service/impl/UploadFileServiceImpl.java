@@ -3,12 +3,11 @@ package com.imall.shoppingproducer.service.impl;
 import com.imall.shoppingproducer.service.UploadFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -20,17 +19,20 @@ import java.io.IOException;
 @Slf4j
 public class UploadFileServiceImpl implements UploadFileService {
 
-
+    private String imagePath;
 
     @Value(value = "${baseUrl}")
     private String baseUrl;
 
     @Override
-    public String uploadGoodsImage(MultipartFile file, Integer goodsId, Integer vendorId) throws FileNotFoundException {
-        String path = ResourceUtils.getURL("classpath:").getPath();
-        String dir = path + "/static/goods-image/" + vendorId.toString();
+    public String uploadGoodsImage(MultipartFile file, Integer goodsId, Integer vendorId) {
+        ApplicationHome h = new ApplicationHome(getClass());
+        File classFile = h.getSource();
+        String path=classFile.getParentFile().getPath().replaceAll("\\\\", "/");
+        String dir = path +"/classes/static/goods-image/"+ vendorId.toString();
         boolean status=true;
         File uploadDir = new File(dir);
+        log.info("目录路径:{}",dir);
         if (!uploadDir.exists()){
             status=uploadDir.mkdir();
         }
@@ -51,4 +53,5 @@ public class UploadFileServiceImpl implements UploadFileService {
         }
         return null;
     }
+
 }

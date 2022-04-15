@@ -78,6 +78,19 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
+    public List<Goods> getCarousel() {
+        if(!redisUtils.hasKey(REDIS_ALL_GOODS_KEY)){
+            getAll();
+        }
+        List<Goods> goodsList=new ArrayList<>();
+        for(int i=0;i<6;i++){
+            Goods goods=objectMapper.convertValue(redisUtils.lGetIndex(REDIS_ALL_GOODS_KEY,i),Goods.class);
+            goodsList.add(goods);
+        }
+        return goodsList;
+    }
+
+    @Override
     public Goods getOneAndSaveToRedis(Integer goodsId,Integer clientId) {
         String gid=goodsId.toString();
         String cid=clientId.toString();
@@ -116,7 +129,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-   @Scheduled(cron = "0 0/15 * * * * *")
+   @Scheduled(cron = "0 0/15 * * * ? ")
     public void getFlashToRedisByDate() {
         log.info("开始获取当天闪购商品信息");
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

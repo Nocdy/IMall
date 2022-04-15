@@ -28,6 +28,12 @@ public interface GoodsService extends IService<Goods> {
     List<Goods> getNewList(int listNum);
 
     /**
+     * 获取展示图片
+     * @return 返回结果
+     */
+    List<Goods> getCarousel();
+
+    /**
      * 浏览单个商品并将其缓存到redis中
      * @param goodsId 商品id
      * @param  clientId 客户id

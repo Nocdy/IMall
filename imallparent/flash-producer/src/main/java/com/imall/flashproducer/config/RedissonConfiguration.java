@@ -27,6 +27,7 @@ public class RedissonConfiguration {
     public RedissonClient getRedisson(){
         Config config=new Config();
         config.useSingleServer()
+                .setDatabase(0)
                 .setAddress(connectString)
                 .setPassword(password);
         config.setCodec(new StringCodec());

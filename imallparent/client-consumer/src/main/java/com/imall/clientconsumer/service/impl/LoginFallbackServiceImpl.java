@@ -50,6 +50,12 @@ public class LoginFallbackServiceImpl implements FallbackFactory<LoginService> {
                 log.error("调用获取客户id服务时发生错误");
                 return ExceptionResultUtils.returnResult(cause);
             }
+
+            @Override
+            public Result<Object> getVendorInfo(Integer id) {
+                log.error("调用获取商家信息服务时发生错误");
+                return ExceptionResultUtils.returnResult(cause);
+            }
         };
     }
 }

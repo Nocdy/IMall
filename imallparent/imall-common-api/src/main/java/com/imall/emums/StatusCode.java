@@ -15,13 +15,13 @@ public enum StatusCode implements Serializable {
 
     //每个枚举字段由状态码和该码的描述信息组成
 
-    USER_REGISTRY_FAIL(1001,HttpStatus.BAD_REQUEST,"注册失败，用户已存在"),
+    USER_REGISTRY_FAIL(2003,HttpStatus.BAD_REQUEST,"注册失败，用户已存在"),
 
-    USER_NAME_ALREADY_EXIST(1000, HttpStatus.BAD_REQUEST, "注册用户已存在已经存在"),
+    USER_NAME_ALREADY_EXIST(2004, HttpStatus.BAD_REQUEST, "注册用户已存在已经存在"),
 
-    VENDOR_REGISTRY_FAIL(1002,HttpStatus.BAD_REQUEST,"该商店已注册"),
+    VENDOR_REGISTRY_FAIL(2005,HttpStatus.BAD_REQUEST,"该商店已注册"),
 
-    LOGIN_FAIL(1004,HttpStatus.BAD_REQUEST,"登陆失败,用户不存在或密码错误"),
+    LOGIN_FAIL(2006,HttpStatus.BAD_REQUEST,"登陆失败,用户不存在或密码错误"),
 
     SUCCESS(2000,HttpStatus.OK,"业务成功"),
 
@@ -29,7 +29,7 @@ public enum StatusCode implements Serializable {
 
     LOGIN_SUCCESS(2002,HttpStatus.OK,"登陆成功"),
 
-    ROLE_NOT_FOUND(3001,HttpStatus.NOT_FOUND,"指定角色未找到角色"),
+    ROLE_NOT_FOUND(2007,HttpStatus.NOT_FOUND,"指定角色未找到角色"),
 
 
     ERROR(5000,HttpStatus.INTERNAL_SERVER_ERROR,"发生错误，请联系管理员或稍后重试"),
@@ -38,9 +38,7 @@ public enum StatusCode implements Serializable {
 
     FALLBACK(5002,HttpStatus.SERVICE_UNAVAILABLE,"服务器不可用"),
 
-    BLOCK(6000,HttpStatus.TOO_MANY_REQUESTS,"当人访问人数过多，请稍后尝试！"),
-
-    METHOD_ARGUMENT_NOT_VALID(1003, HttpStatus.BAD_REQUEST, "方法参数验证失败");
+    BLOCK(5003,HttpStatus.TOO_MANY_REQUESTS,"当人访问人数过多，请稍后尝试！");
 
 
 

@@ -1,12 +1,14 @@
 package com.imall.loginproducer.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.imall.loginproducer.service.ClientInformService;
-import com.imall.loginproducer.service.GetInfoService;
-import com.imall.utils.CurrentUserUtils;
 import com.imall.dto.Result;
 import com.imall.emums.StatusCode;
 import com.imall.entities.users.ClientInform;
+import com.imall.entities.users.Vendor;
+import com.imall.loginproducer.service.ClientInformService;
+import com.imall.loginproducer.service.GetInfoService;
+import com.imall.loginproducer.service.VendorService;
+import com.imall.utils.CurrentUserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class GetInfoServiceImpl implements GetInfoService {
     private final CurrentUserUtils currentUserUtils;
 
     private final ClientInformService clientInformService;
+
+    private final VendorService vendorService;
 
     @Override
     public Result<Object> getCurrentClientInfo() {
@@ -41,4 +45,13 @@ public class GetInfoServiceImpl implements GetInfoService {
         return new Result<>(data,StatusCode.SUCCESS.getCode(),
                 StatusCode.SUCCESS.getMessage());
     }
+
+    @Override
+    public Result<Object> getVendorInfo(Integer vendorId) {
+        JSONObject data=new JSONObject();
+        Vendor vendor=vendorService.getById(vendorId);
+        data.put("vendor",vendor);
+        return new Result<>(data,StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
+    }
+
 }

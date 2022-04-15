@@ -36,6 +36,8 @@ public class FlashUtils{
     @Value("${FLASH_END}")
     private String flashEnd;
 
+    private final String lockKey="redissonLock";
+
     /**
      * 扣库存
      *
@@ -55,7 +57,7 @@ public class FlashUtils{
     }
     private Long getResult(String key, String stockLua) {
         Long result=0L;
-        RLock lock=redissonClient.getLock(key);
+        RLock lock=redissonClient.getLock(lockKey);
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>(stockLua,Long.class);
         try {
             boolean res=lock.tryLock(2,8, TimeUnit.SECONDS);

@@ -9,10 +9,14 @@ import com.imall.shoppingproducer.service.PurchaseService;
 import com.imall.shoppingproducer.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
 
 /**
  * @author Nocdy
@@ -40,16 +44,17 @@ public class ShoppingController {
 
     }
 
+    @GetMapping("/carouselGet")
+    public Result<Object> carouselGet(){
+        JSONObject data =new JSONObject();
+        data.put("showList",goodsService.getCarousel());
+        return new Result<>(data,StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
+    }
+
     @PostMapping("/updateGoods")
-    public Result<Object> updateGoods(Goods goods){
-        try {
+    public Result<Object> updateGoods(Goods goods, HttpSession session) throws FileNotFoundException, InterruptedException, FileUploadException {
             goodsService.submitUpdate(goods);
             return new Result<>(StatusCode.SUCCESS.getCode(),StatusCode.SUCCESS.getMessage());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new Result<>(StatusCode.ERROR.getCode(),StatusCode.ERROR.getMessage());
-        }
     }
 
     @GetMapping("/getOne/{cid}/{gid}")
@@ -87,6 +92,13 @@ public class ShoppingController {
         purchaseService.purchase(cid);
         return new Result<>(StatusCode.SUCCESS.getCode(),
                 StatusCode.SUCCESS.getMessage());
+    }
+
+    @GetMapping("/search/{keyword}")
+    public Result<Object> searchGoods(@PathVariable("keyword") String keyword){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("searchList",goodsService.searchList(keyword));
+        return new Result<>(jsonObject,StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
     }
 
 

@@ -47,6 +47,18 @@ public class ShoppingFallBackServiceImpl implements FallbackFactory<ShoppingServ
                 log.error("调用结账服务时发生错误");
                 return ExceptionResultUtils.returnResult(cause);
             }
+
+            @Override
+            public Result<Object> searchGoods(String keyword) {
+                log.error("调用搜索服务时发生错误");
+                return ExceptionResultUtils.returnResult(cause);
+            }
+
+            @Override
+            public Result<Object> carouselGet() {
+                log.error("调用展示图片时发生错误");
+                return ExceptionResultUtils.returnResult(cause);
+            }
         };
     }
 }

@@ -71,4 +71,14 @@ public class ShoppingController {
         return  confirmService.showOrder(orderFlag);
     }
 
+    @GetMapping("/search/{keyword}")
+    public Result<Object> searchGoods(@PathVariable("keyword") String keyword){
+        return shoppingService.searchGoods(keyword);
+    }
+
+    @GetMapping("/carouselGet")
+    public Result<Object> carouselGet(){
+        return shoppingService.carouselGet();
+    }
+
 }

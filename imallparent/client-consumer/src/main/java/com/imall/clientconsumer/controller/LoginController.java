@@ -44,6 +44,11 @@ public class LoginController {
         return  loginService.getUserId();
     }
 
+    @GetMapping("/getVendorInfo/{id}")
+    public Result<Object> getVendorInfo(@PathVariable("id") Integer id){
+        return loginService.getVendorInfo(id);
+    }
+
 
 
 }

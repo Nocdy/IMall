@@ -8,6 +8,7 @@ import com.imall.dto.UserRegistry;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -53,5 +54,8 @@ public interface LoginService {
 
     @GetMapping("/getUserId")
      Result<Object> getUserId();
+
+    @GetMapping("/getVendorInfo/{id}")
+    Result<Object> getVendorInfo(@PathVariable("id") Integer id);
 
 }

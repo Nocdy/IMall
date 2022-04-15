@@ -1,6 +1,7 @@
 package com.imall.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -27,6 +28,8 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         map.put("status",HttpServletResponse.SC_UNAUTHORIZED);
         map.put("uri", request.getRequestURI());
         map.put("msg", "你的身份已过期");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         ObjectMapper objectMapper = new ObjectMapper();
         String resBody = objectMapper.writeValueAsString(map);

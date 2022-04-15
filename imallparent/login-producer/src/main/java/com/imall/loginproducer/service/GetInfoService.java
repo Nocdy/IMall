@@ -23,4 +23,10 @@ public interface GetInfoService {
      */
     Result<Object> getUserId();
 
+    /**
+     * 获得商家信息
+     * @param vendorId 商家id
+     * @return 返回商家信息
+     */
+    Result<Object> getVendorInfo(Integer vendorId);
 }
