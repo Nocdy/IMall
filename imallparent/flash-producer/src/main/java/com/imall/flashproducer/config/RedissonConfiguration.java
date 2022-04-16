@@ -5,6 +5,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.StringCodec;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2022/3/19 17:56
  */
 @Configuration
+@RefreshScope
 public class RedissonConfiguration {
 
     @Value("${REDISSON_CONNECT_ADDR}")

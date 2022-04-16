@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: shopping-producer
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.106.185.49:8848
+        file-extension: properties
+        prefix: shopping-producer
+      server-addr: 47.106.185.49:8848

@@ -4,6 +4,7 @@ import com.imall.shoppingproducer.service.UploadFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
  */
 @Service
 @Slf4j
+@RefreshScope
 public class UploadFileServiceImpl implements UploadFileService {
 
     private String imagePath;
