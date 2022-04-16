@@ -6,7 +6,7 @@ spring:
       server-addr: 47.106.185.49:8848
     sentinel:
       transport:
-        dashboard: localhost:8085
+        dashboard: sentinel:8085
         port: 8719 #控制台与应用交互的端口
 
 management:
